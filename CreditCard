@@ -1,0 +1,66 @@
+//Greedy Algorithm - Credit Problem
+
+#include <stdio.h>
+#include <cs50.h>
+
+bool check_length(long ccnum);
+bool check_sum(long ccn);
+
+
+int main(void)
+{
+    // get credit card number
+    long creditcardnum = get_long ("Credit Card Number: \n");
+    while (creditcardnum < 0 || check_length(creditcardnum) == false || check_sum(creditcardnum) == false) {
+        creditcardnum = get_long("Credit Card Number: \n");
+    }
+
+}
+
+
+bool check_length(long ccnum)
+{
+    int length = 0;
+    while (ccnum != 0)
+    {
+        ccnum /= 10;
+        length++;
+
+    }
+
+    if (length == 13 || length == 15 || length == 16)
+    {
+       // printf("Valid Card");
+        return true;
+    }
+    else
+    {
+       // printf("Invalid Card");
+        return false;
+    }
+}
+
+bool check_sum(long ccn)
+{
+     int sum=0; 
+     int digit2;
+
+    printf("%li\n", ccn);
+    for (int i = 0; ccn != 0; i++, ccn /= 10)
+     {
+        if (i % 2 == 0)
+            sum += ccn % 10;
+        
+        else
+        {
+            digit2 = 2 * (ccn % 10);
+            sum += digit2 / 10 + digit2 % 10;
+        }
+      
+     }
+
+     return  (sum % 10) == 0;
+     printf ("sum %i", sum);
+        
+}
+    
